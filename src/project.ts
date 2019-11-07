@@ -99,7 +99,7 @@ export class ProjectObserser {
                 return new Promise<Buffer>((res, rej) => {
                     zip.on('finish', () => {
                         streamBuffer.end();
-                        res(streamBuffer.getContents());
+                        res(streamBuffer.getContents() as Buffer);
                     });
                 });
             })
@@ -133,7 +133,7 @@ export class ProjectObserser {
                 return new Promise<Buffer>((res, rej) => {
                     zip.on('finish', () => {
                         streamBuffer.end();
-                        res(streamBuffer.getContents());
+                        res(streamBuffer.getContents() as Buffer);
                     });
                 });
             })

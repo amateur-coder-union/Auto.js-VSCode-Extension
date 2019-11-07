@@ -66,7 +66,7 @@ export class AutoJsDebugServer extends EventEmitter{
 
     listen(): void {
         this.server.listen(this.port, '0.0.0.0', ()=>{
-            let address = this.server.address();
+            let address = this.server.address() as net.AddressInfo;
             console.log(`server listening on ${address.address}':${address.port}`);
             this.emit("connect");
         });

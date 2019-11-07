@@ -3,7 +3,39 @@ import * as vscode from 'vscode';
 import { AutoJsDebugServer, Device } from './autojs-debug';
 import * as oldAutojs from './autojs-debug-old';
 import { ProjectTemplate, Project } from './project';
-import { join } from 'path';
+import * as fs from 'fs';
+import * as path from 'path';
+
+
+const getBaseDir = () => {
+  let folders = vscode.workspace.workspaceFolders;
+  if (!folders || folders.length == 0) {
+    vscode.window.showInformationMessage('请打开一个项目的文件夹');
+    return null;
+  }
+  return folders[0].uri.fsPath;
+};
+
+const getConfigPath = (folder = getBaseDir()) => {
+  if (folder == null) return null;
+  const configPath = path.resolve(folder, './autoJs.conf.js');
+  return configPath;
+};
+
+const getScriptFile = () => {
+  const folder = getBaseDir();
+  const configPath = getConfigPath(folder);
+  if (configPath != null && fs.existsSync(configPath)) {
+    const file = require(configPath);
+    const scriptFilePath = path.resolve(folder, file.scriptFile);
+    if (fs.existsSync(scriptFilePath))
+      return {
+        fileName: scriptFilePath,
+        script: fs.readFileSync(scriptFilePath).toString('utf-8'),
+      };
+  }
+  return null;
+};
 
 var server = new AutoJsDebugServer(9317);
 var oldServer = new oldAutojs.AutoJsDebugServer(1209);
@@ -60,6 +92,7 @@ class Extension {
     }
 
     run() {
+      console.log('run?');
         this.runOn(server);
         this.runOn(oldServer);
     }
@@ -124,20 +157,31 @@ class Extension {
     }
 
     runOn(target: AutoJsDebugServer | Device | oldAutojs.Device | oldAutojs.AutoJsDebugServer) {
-        let editor = vscode.window.activeTextEditor;
+      const result = getScriptFile();
+      let editor = vscode.window.activeTextEditor;
+      let fileName;
+      let script;
+      if (result == null) {
+        fileName = editor.document.fileName;
+        script = editor.document.getText();
+      } else {
+        vscode.window.showInformationMessage(`use scriptFile: ${fileName}`);
+        fileName = result.fileName;
+        script = result.script;
+      }
         if (target instanceof oldAutojs.Device || target instanceof oldAutojs.AutoJsDebugServer) {
             target.send({
                 'type': 'command',
                 'command': 'run',
-                'view_id': editor.document.fileName,
-                'name': editor.document.fileName,
-                'script': editor.document.getText()
+                'view_id': fileName,
+                'name': fileName,
+                'script': script
             })
         } else {
             target.sendCommand('run', {
-                'id': editor.document.fileName,
-                'name': editor.document.fileName,
-                'script': editor.document.getText()
+                'id': fileName,
+                'name': fileName,
+                'script': script
             })
         }
 
