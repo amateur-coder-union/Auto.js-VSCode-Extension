@@ -1,12 +1,12 @@
 {
-  "name": "auto-js-vscodeext",
+  "name": "autp-x",
   "displayName": "autpX",
   "description": "Just a simple development plugin for Android app Auto.js",
   "version": "0.0.1",
   "publisher": "flasco",
   "repository": {
     "type": "github",
-    "url": "https://github.com/hyb1996/Auto.js-VSCode-Extension"
+    "url": "https://github.com/amateur-coder-union/Auto.js-VSCode-Extension"
   },
   "engines": {
     "vscode": "^1.17.0"
