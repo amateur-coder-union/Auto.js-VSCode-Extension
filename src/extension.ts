@@ -74,7 +74,7 @@ oldServer
 
 function checkIsEmpty() {
   if (server.isEmpty() && oldServer.isEmpty()) {
-    vscode.window.showInformationMessage('please link device at first');
+    vscode.window.showErrorMessage('please link device at first');
     return true;
   }
   return false;
