@@ -92,9 +92,13 @@ class Extension {
     }
 
     run() {
-      console.log('run?');
         this.runOn(server);
         this.runOn(oldServer);
+    }
+
+    runX() {
+      this.runOn(server, true);
+      this.runOn(oldServer, true);
     }
 
     stop() {
@@ -156,8 +160,8 @@ class Extension {
             });
     }
 
-    runOn(target: AutoJsDebugServer | Device | oldAutojs.Device | oldAutojs.AutoJsDebugServer) {
-      const result = getScriptFile();
+    runOn(target: AutoJsDebugServer | Device | oldAutojs.Device | oldAutojs.AutoJsDebugServer, isCurrent = false) {
+      const result = isCurrent ? null : getScriptFile();
       let editor = vscode.window.activeTextEditor;
       let fileName;
       let script;
@@ -165,9 +169,9 @@ class Extension {
         fileName = editor.document.fileName;
         script = editor.document.getText();
       } else {
-        vscode.window.showInformationMessage(`use scriptFile: ${fileName}`);
         fileName = result.fileName;
         script = result.script;
+        vscode.window.showInformationMessage(`use scriptFile: ${fileName}`);
       }
         if (target instanceof oldAutojs.Device || target instanceof oldAutojs.AutoJsDebugServer) {
             target.send({
@@ -254,7 +258,7 @@ class Extension {
 
 
 const commands = ['startServer', 'stopServer', 'run', 'runOnDevice', 'stop', 'stopAll', 'rerun', 'save', 'saveToDevice', 'newProject',
-            'runProject', 'saveProject'];
+            'runProject', 'saveProject', 'runX'];
 let extension = new Extension();
 
 export function activate(context: vscode.ExtensionContext) {

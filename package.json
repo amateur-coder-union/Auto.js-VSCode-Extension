@@ -2,7 +2,7 @@
   "name": "autp-x",
   "displayName": "autpX",
   "description": "Just a simple development plugin for Android app Auto.js",
-  "version": "0.0.1",
+  "version": "0.0.2-beta.1",
   "publisher": "flasco",
   "repository": {
     "type": "github",
@@ -25,6 +25,7 @@
     "onCommand:extension.startServer",
     "onCommand:extension.stopServer",
     "onCommand:extension.run",
+    "onCommand:extension.runX",
     "onCommand:extension.runOnDevice",
     "onCommand:extension.stop",
     "onCommand:extension.stopAll",
@@ -41,6 +42,43 @@
         "language": "javascript"
       }
     ],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "resourceLangId == typescript",
+          "command": "extension.run",
+          "group": "navigation@1"
+        },
+        {
+          "when": "resourceLangId == javascript",
+          "command": "extension.runX",
+          "group": "navigation@1"
+        }
+      ],
+      "editor/context": [
+        {
+          "when": "editorFocus && resourceLangId == typescript",
+          "command": "extension.run",
+          "group": "4_autojs"
+        },
+        {
+          "when": "editorFocus && resourceLangId == javascript",
+          "command": "extension.runX",
+          "alt": "extension.run",
+          "group": "4_autojs"
+        },
+        {
+          "when": "editorFocus",
+          "command": "extension.startServer",
+          "group": "4_autojs"
+        },
+        {
+          "when": "editorFocus",
+          "command": "extension.stopServer",
+          "group": "4_autojs"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "extension.startServer",
@@ -52,7 +90,19 @@
       },
       {
         "command": "extension.run",
-        "title": "Auto.js: Run"
+        "title": "Auto.js: Run",
+        "icon": {
+          "light": "./icon/run.svg",
+          "dark": "./icon/run.svg"
+        }
+      },
+      {
+        "command": "extension.runX",
+        "title": "Auto.js: Run Current File",
+        "icon": {
+          "light": "./icon/run.svg",
+          "dark": "./icon/run.svg"
+        }
       },
       {
         "command": "extension.runOnDevice",
