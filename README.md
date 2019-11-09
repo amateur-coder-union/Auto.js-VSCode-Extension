@@ -63,6 +63,14 @@ module.exports = {
 
 ## Self Release Notes
 
+### 0.0.2-beta.3
+
+未连接设备时的错误弹框换成 showErrorMessage。
+
+### 0.0.2-beta.2
+
+未连接设备时执行 run 相关指令会弹出错误提示（please link device at first）。
+
 ### 0.0.2-beta.1
 
 添加常用功能到左上与编辑的右键菜单，提高开发效率。
