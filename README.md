@@ -61,6 +61,14 @@ module.exports = {
 };
 ```
 
+## Self Release Notes
+
+### 0.0.2-beta.1
+
+添加常用功能到左上与编辑的右键菜单，提高开发效率。
+
+注：仅在 JavaScript 格式的文件夹下会展示 run current file，typescript 格式下只会展示 run，（运行整个项目编译之后的结果，前提是项目根目录下存在 `autoJs.conf.js` 并且指定了 `scriptFile`，具体可以参考 [config](##config)）。右键菜单添加了比如 start server 之类的，具体可以自行摸索。
+
 ## Release Notes
 
 ### 0.0.1
