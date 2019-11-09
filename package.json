@@ -2,7 +2,7 @@
   "name": "autp-x",
   "displayName": "autpX",
   "description": "Just a simple development plugin for Android app Auto.js",
-  "version": "0.0.2-beta.1",
+  "version": "0.0.2-beta.2",
   "publisher": "flasco",
   "repository": {
     "type": "github",
