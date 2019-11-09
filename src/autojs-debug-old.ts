@@ -64,6 +64,10 @@ export class AutoJsDebugServer extends EventEmitter{
         });
     }
 
+    isEmpty = () => {
+      return this.devices.length < 1;
+    }
+
     listen(): void {
         this.server.listen(this.port, '0.0.0.0', ()=>{
             let address = this.server.address();

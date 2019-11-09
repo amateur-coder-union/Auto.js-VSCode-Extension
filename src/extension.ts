@@ -72,6 +72,13 @@ oldServer
     device.on('data:device_name', showMessage);
   });
 
+function checkIsEmpty() {
+  if (server.isEmpty() && oldServer.isEmpty()) {
+    vscode.window.showInformationMessage('please link device at first');
+    return true;
+  }
+  return false;
+}
 class Extension {
   startServer() {
     server.listen();
@@ -85,11 +92,15 @@ class Extension {
   }
 
   run() {
+    if (checkIsEmpty()) return;
+
     this.runOn(server);
     this.runOn(oldServer);
   }
 
   runX() {
+    if (checkIsEmpty()) return;
+
     this.runOn(server, true);
     this.runOn(oldServer, true);
   }

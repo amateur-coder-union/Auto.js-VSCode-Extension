@@ -143,6 +143,10 @@ export class AutoJsDebugServer extends EventEmitter {
         });
     }
 
+    isEmpty = () => {
+      return this.devices.length < 1;
+    }
+
     openConnection(request: ws.request): ws.connection {
         return request.accept();
     }
